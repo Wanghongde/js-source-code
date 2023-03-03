@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html, body, .container {
+      margin: 0;
+      height: 100vh;
+    }
+    .container {
+      position: relative;
+    }
+    .container div {
+      position: absolute;
+      width: 120px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+  </div>
+
+  <script>
+    let list =  [
+      {
+          height: 300,
+          background: 'red'
+      },
+      {
+          height: 400,
+          background: 'pink'
+      },
+      {
+          height: 500,
+          background: 'blue'
+      },
+      {
+          height: 200,
+          background: 'green'
+      },
+      {
+          height: 300,
+          background: 'gray'
+      },
+      {
+          height: 400,
+          background: '#CC00FF'
+      },
+      {
+          height: 200,
+          background: 'black'
+      },
+      {
+          height: 100,
+          background: '#996666'
+      },
+      {
+          height: 500,
+          background: 'skyblue'
+      },
+      {
+          height: 300,
+          background: '#993366'
+      },
+      {
+          height: 100,
+          background: '#33FF33'
+      },
+      {
+        height: 400,
+        background: 'skyblue'
+      },
+      {
+          height: 300,
+          background: 'red'
+      },
+      {
+          height: 400,
+          background: 'pink'
+      },
+      {
+          height: 500,
+          background: 'blue'
+      },
+      {
+          height: 200,
+          background: 'green'
+      },
+      {
+          height: 300,
+          background: 'gray'
+      },
+      {
+          height: 400,
+          background: '#CC00FF'
+      },
+      {
+          height: 200,
+          background: 'black'
+      },
+      {
+          height: 100,
+          background: '#996666'
+      },
+      {
+          height: 500,
+          background: 'skyblue'
+      },
+      {
+          height: 300,
+          background: '#993366'
+      },
+      {
+          height: 100,
+          background: '#33FF33'
+      },
+      {
+        height: 400,
+        background: 'skyblue'
+      }
+    ]
+
+    function renderListFn () {
+      let renderList = []  // 用来盛放要渲染的数组
+      let heightList = []  // 盛放每一行元素的高度
+
+      let column = Math.floor(document.body.clientWidth / 130)  // 一行几列
+
+      list.forEach((item, index) => {
+        if(index < column) {
+          item.top = 0
+          item.left = 130 * index
+
+          renderList.push(item)
+          heightList.push(item.height)  // 记录下一整行各个元素的高度
+        } else {  // 数据超过第一行，就需要逐个元素去判断放置的位置
+          let shotHeight = heightList[0]  // 假设第一个是最小高度
+          let shotIndex = 0  // 假设最小高度的列索引
+
+          heightList.forEach((heightItem, heightIndex) => {  // 循环遍历高度列表
+            if(shotHeight > heightItem) {  // 当高度小于标识 则替换
+              shotHeight = heightItem
+              shotIndex = heightIndex
+            }
+          })
+
+          item.left = 130 * shotIndex  // 设置最小高度列的左偏移
+          item.top = shotHeight + 10  // 给最小高度列下边 并留10px 间距
+
+          renderList.push(item)  // 将元素 放到渲染数组
+
+          heightList[shotIndex] = shotHeight + item.height  // 更新heightlist高度列表
+
+
+        }
+      })
+
+      let result = ``
+
+      renderList.forEach(item => {
+        result += `<div style="
+          height: ${item.height}px; 
+          background: ${item.background}; 
+          left: ${item.left}px; 
+          top: ${item.top}px"></div>`
+      })
+
+      document.querySelector('.container').innerHTML = result
+    }
+
+    renderListFn()
+
+    window.onresize = renderListFn
+  </script>
+</body>
+</html>
