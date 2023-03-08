@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    {{ info.msg }}
+
+    <h1>{{result}}</h1>
+    <div>{{info.msg}}</div>
+
+    <p>
+      {{total}}-- {{result}}
+    </p>
+    <!-- <p>
+      {{result}}
+    </p> -->
+    <input type="text" v-model="val">
+  </div>
+
+  <script src="./07-vue2_mvvm.js"></script>
+  <script>
+    let app = new Vue2({
+      el: '#app',
+      data: {
+        info: {
+          msg: 'hello'
+        },
+        val: 'hello',
+        address: '石家庄'
+      },
+      computed: {
+        total() {
+          return this.val + this.address
+        },
+        result: {
+          get() {
+            return this.info.msg + '$'
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

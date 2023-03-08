@@ -11,11 +11,11 @@ function _delay() {
 }
 
 function _isShow(el){
-  let coords = el.getBoundingClientRect()  // 提供了元素的大小及其相对于视口的位置
+  let result = el.getBoundingClientRect()  // 提供了元素的大小及其相对于视口的位置
 
   // document.documentElement.clientHeight 视口的高度
-  // coords.top  元素上边距离页面上边的距离
-  let flag = coords.top <= document.documentElement.clientHeight  // flag:true 说明元素将要出现到页面可视区
+  // result.top  元素上边距离页面上边的距离
+  let flag = result.top <= document.documentElement.clientHeight  // flag:true 说明元素将要出现到页面可视区
 
   return flag
 }
