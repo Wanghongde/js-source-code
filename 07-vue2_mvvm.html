@@ -16,15 +16,15 @@
     <p>
       {{total}}-- {{result}}
     </p>
-    <!-- <p>
+    <p>
       {{result}}
-    </p> -->
-    <input type="text" v-model="val">
+    </p>
+    <input type="text" v-model="info.msg">
   </div>
 
   <script src="./07-vue2_mvvm.js"></script>
   <script>
-    let app = new Vue2({
+    let app = new Vue({
       el: '#app',
       data: {
         info: {
