@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let obj = {
+      address: '石家庄1'
+    }
+
+    let fn = function(one, two) {
+      console.log(this.address, one, two)
+    }
+
+    Function.prototype.myCall = function(context) {
+      context.fn = this
+      
+      let arr = []
+      for(let i = 1; i< arguments.length; i++) {
+        arr.push(arguments[i])
+      }
+
+      let result = context.fn(...arr)
+
+      delete context.fn
+
+      return result
+    }
+
+    Function.prototype.myApply = function(context, arr) {
+      context.fn = this
+
+      let result = context.fn(...arr)
+
+      delete context.fn
+
+      return result
+    }
+
+    Function.prototype.myBind = function(context) {
+      let fn = this
+
+      let arr = []
+      for(let i = 1; i< arguments.length; i++) {
+        arr.push(arguments[i])
+      }
+
+      return function() {
+        return fn.myCall(context, ...arr)
+      }
+    }
+
+    fn.myCall(obj, 11, 22)
+    fn.myApply(obj, ['aa', 'bb'])
+
+    let fn2 = fn.myBind(obj, 'AA', 'BB')
+
+    fn2()
+  </script>
+</body>
+</html>
