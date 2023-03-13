@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" class="content" />
+
+  <script>
+    let content = document.querySelector('.content')
+
+    function debounce(fn, delay) {
+      let timer 
+
+      return function() {
+        if(timer) clearTimeout(timer)
+
+        timer = setTimeout(() => {
+          fn.apply(this, arguments)
+        }, delay)
+      }
+    }
+
+    let fn = function(e) {
+      console.log(e.target.value)
+    }
+    content.oninput = debounce(fn, 200)
+  </script>
+</body>
+</html>

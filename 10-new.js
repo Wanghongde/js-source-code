@@ -11,14 +11,20 @@ let p = new Person('张三', 10)
 console.log(p.uname)
 p.sayHi()
 
+// function createFactory(obj, ...rest) {
+//   let newObj = Object.create(obj.prototype)
+
+//   obj.apply(newObj, rest)
+
+//   return newObj
+// }
+
 function createFactory() {
   let obj = new Object()
 
   let Constructor = [].shift.call(arguments)
-  console.log(Constructor)
 
   obj.__proto__ = Constructor.prototype
-  console.log(obj)
 
   Constructor.apply(obj, arguments)
 
