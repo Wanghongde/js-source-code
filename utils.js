@@ -57,3 +57,45 @@ export const checkIdCard = function(id) {
 
   return checkAddress(cardId) && checkBirth(cardId.substring(6, 14)) && checkCode(cardId)
 }
+
+
+// #ifdef H5
+// 截取视频第一帧
+//     地址   第几帧
+// Get("url", 10).then(
+// getimg => {
+// 	this.img = getimg
+// })
+export default function(url, Time = 1) {
+	return new Promise((a, b) => {
+			var video;
+			var scale = 1;
+			var initialize = function() {
+				video = document.createElement('video');
+				
+				video.src = url
+				console.log(123123,url)
+				video.addEventListener('loadeddata', function() {
+					console.log(1123123213)
+					video.currentTime = Time;
+					setTimeout(function() {
+						console.log(123123)
+						captureImage()
+					}, 1000)
+				});
+			};
+			var captureImage = function() {
+				var canvas = document.createElement("canvas");
+			
+				canvas.width = video.videoWidth * scale;
+				canvas.height = video.videoHeight * scale;
+				canvas.getContext('2d').drawImage(video, 0, 0,);
+				let src = canvas.toDataURL("image/png");
+				console.log(123123, src)
+				a(src)
+			};
+			initialize();
+	
+	})
+}
+// #endif
